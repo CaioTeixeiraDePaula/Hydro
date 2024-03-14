@@ -44,7 +44,7 @@ your-project-folder
 
 ## Commands list
 
-Designed to be a very user-friendly module, `HydroDB` only has 6 operational functions and 4 observable functions to be called.
+Designed to be a very user-friendly module, `HydroDB` only has 6 **operational** functions and 3 **observable** functions to be called.
 
 ## Operational Functions
 
@@ -55,7 +55,7 @@ The opearional functions are thesigned to execute the CRUD
 - U : update
 - D : delete
 
-1 of them are to `create`, 1 for `reade`, 3 for `update` and 1 for `delete`e
+1 of them are to `create`, 1 for `reade`, 3 for `update` and 1 for `delete`.
 
     
 ### create_table() --> `create`
@@ -77,7 +77,7 @@ hydro.create_table(
   "META DATA": null,
   "TABLE COLUMNS": [
     "name",
-    "age",
+    "age"
   ],
   "PK": "name",
   "ROWS": []
@@ -108,7 +108,7 @@ hydro.add_rows(
   "META DATA": null,
   "TABLE COLUMNS": [
     "name",
-    "age",
+    "age"
   ],
   "PK": "name",
   "ROWS": [
@@ -164,7 +164,7 @@ If you want to update a single row, uses the element `id` as the filter paramete
 hydro.update(
     from_="Table_1",
     columns=["name", "age"],
-    where="name = James"
+    where="name = James",
     with_values=["Caio", 19],
 )
 ```
@@ -175,7 +175,7 @@ hydro.update(
   "META DATA": null,
   "TABLE COLUMNS": [
     "name",
-    "age",
+    "age"
   ],
   "PK": "name",
   "ROWS": [
@@ -198,6 +198,7 @@ hydro.update(
 
 - `with_values`:list --> The values to be updated to the current row data.
 
+
 ### delete() --> `delete`
 
 This function removes an entire row from the table that has the specified value passed in.
@@ -205,7 +206,7 @@ This function removes an entire row from the table that has the specified value 
 ```python
 hydro.delete(
     from_="Table_1",
-    where="id = 1",
+    where="id = 1"
 )
 ```
 ```json
@@ -215,7 +216,7 @@ hydro.delete(
   "META DATA": null,
   "TABLE COLUMNS": [
     "name",
-    "age",
+    "age"
   ],
   "PK": "name",
   "ROWS": []
@@ -225,3 +226,49 @@ hydro.delete(
 - `from_`: str --> Is the table to search the row.
 
 - `where`: str --> pecifies the groupe of elements or a single element to be updated.
+
+
+## Observable Functions
+Those are mede to access general data fro the table, like the entire table structure, or the table's rows
+
+### read_table()
+This function returns the entire table structure. To use this functions just pass the table name.
+```python
+hydro.read_table(table_name="TABLE_1")
+```
+```bash
+#Expected output
+
+'{"TABLE NAME": "TABLE_1", "META DATA": null, "TABLE COLUMNS": ["name", "age"], "PK": "name", "ROWS": [{"id": 1, "values":{ "name": "Caio","age": 19}}]}'
+```
+
+- `table_name`:str -->Inte the table's name to me readed
+
+
+### read_rows()
+This function returns the entire list of rows in the table, to use, just pass the table's name.
+
+```python
+hydro.read_rows(table_name="TABLE_1")
+```
+```bash
+# Expected output as the 'TABLE_1' only has this row
+'[{"id": 1, "values":{"name": "Caio","age": 19}}]'
+```
+
+- `table_name`:str -->Inte the table's name to me readed
+
+
+### read_columns()
+Used to get the columns in the table. Important to say that ir does not returns data from the rows, just the name of the columns in the table.
+
+
+```python
+hydro.read_columns(table_name="TABLE_1")
+```
+```bash
+# Expected output as the 'TABLE_1' only has those columns
+'["name", "age"]'
+
+```
+- `table_name`:str -->Inte the table's name to me readed
